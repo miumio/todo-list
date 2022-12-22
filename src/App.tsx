@@ -18,10 +18,8 @@ const App: FC = () => {
     const [todoList, setTodoList] = useState<ITask[]>([]);
 
     useEffect(() => {
-        if (localStorage.getItem('todoList')) {
-            const storedList = JSON.parse(localStorage.getItem('todoList') ?? '{}');
-            setTodoList(storedList);
-        }
+        const storedList = JSON.parse(localStorage.getItem('todoList') ?? '{}');
+        setTodoList(storedList);
     }, []);
 
     const handleInput = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -37,7 +35,10 @@ const App: FC = () => {
 
         const newTask = { taskName: task, taskDesc: desc };
         setTodoList([...todoList, newTask]);
-        localStorage.setItem('todoList', JSON.stringify([...todoList, newTask]));
+        localStorage.setItem(
+            'todoList',
+            JSON.stringify([...todoList, newTask]),
+        );
         setTask('');
         setDesc('');
     };
@@ -47,7 +48,7 @@ const App: FC = () => {
 
         setTodoList(elements);
         localStorage.setItem('todoList', JSON.stringify(elements));
-    }
+    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -66,7 +67,13 @@ const App: FC = () => {
                     </Typography>
                     <ul>
                         {todoList.map((task: ITask, key: number) => {
-                            return <TodoTask key={key} task={task} completeTask={completeTask}/>;
+                            return (
+                                <TodoTask
+                                    key={key}
+                                    task={task}
+                                    completeTask={completeTask}
+                                />
+                            );
                         })}
                     </ul>
                     <Box
