@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, useState } from 'react';
+import React, { FC, ChangeEvent, useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -17,6 +17,13 @@ const App: FC = () => {
     const [desc, setDesc] = useState<string>('');
     const [todoList, setTodoList] = useState<ITask[]>([]);
 
+    useEffect(() => {
+        if (localStorage.getItem('todoList')) {
+            const storedList = JSON.parse(localStorage.getItem('todoList') ?? '{}');
+            setTodoList(storedList);
+        }
+    }, []);
+
     const handleInput = (event: ChangeEvent<HTMLInputElement>): void => {
         if (event.target.name === 'task') {
             setTask(event.target.value);
@@ -27,23 +34,19 @@ const App: FC = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        // const data = new FormData(event.currentTarget);
-        // console.log({
-        //     task: data.get('task'),
-        //     desc: data.get('desc'),
-        // });
 
         const newTask = { taskName: task, taskDesc: desc };
         setTodoList([...todoList, newTask]);
-        console.log(todoList);
+        localStorage.setItem('todoList', JSON.stringify([...todoList, newTask]));
         setTask('');
         setDesc('');
     };
 
-    const completeTask = (el: string) => {
-        setTodoList(todoList.filter((task) => {
-            return task.taskName != el
-        }))
+    const completeTask = (el: string): void => {
+        const elements = todoList.filter((task) => task.taskName !== el);
+
+        setTodoList(elements);
+        localStorage.setItem('todoList', JSON.stringify(elements));
     }
 
     return (
@@ -109,67 +112,3 @@ const App: FC = () => {
 };
 
 export default App;
-
-// import * as React from 'react';
-// import Button from '@mui/material/Button';
-// import TextField from '@mui/material/TextField';
-// import Box from '@mui/material/Box';
-// import Typography from '@mui/material/Typography';
-// import Container from '@mui/material/Container';
-// import AddIcon from '@mui/icons-material/Add';
-
-// import TodoList from './TodoList';
-
-// export default function App() {
-//     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-//         event.preventDefault();
-//         const data = new FormData(event.currentTarget);
-//         console.log({
-//             todo: data.get('todo'),
-//         });
-//     };
-
-//     return (
-//             <Container component='main' maxWidth='xs'>
-//                 <Box
-//                     sx={{
-//                         marginTop: 8,
-//                         display: 'flex',
-//                         flexDirection: 'column',
-//                         alignItems: 'center',
-//                     }}
-//                 >
-//                     <Typography component='h1' variant='h2'>
-//                         Todo list app
-//                     </Typography>
-//                     <TodoList />
-//                     <Box
-//                         component='form'
-//                         onSubmit={handleSubmit}
-//                         noValidate
-//                         sx={{
-//                             mt: 1,
-//                             display: 'flex',
-//                             alignItems: 'center',
-//                         }}
-//                     >
-//                         <TextField
-//                             margin='normal'
-//                             required
-//                             id='todo'
-//                             label='todo'
-//                             autoFocus
-//                         />
-//                         <Button
-//                             type='submit'
-//                             endIcon={<AddIcon />}
-//                             variant='contained'
-//                             sx={{ ml: 4 }}
-//                         >
-//                             Add
-//                         </Button>
-//                     </Box>
-//                 </Box>
-//             </Container>
-//     );
-// }
