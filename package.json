@@ -1,14 +1,14 @@
 {
-  "name": "create-react-app-with-typescript",
-  "version": "5.0.0",
+  "name": "todo app",
+  "version": "1.0.0",
   "private": true,
+  "homepage": "https://todo-list-miumio.vercel.app/build",
   "dependencies": {
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "latest",
     "@types/react": "latest",
-    "@types/react-dom": "latest",
     "axios": "^1.2.1",
     "react": "latest",
     "react-dom": "latest",

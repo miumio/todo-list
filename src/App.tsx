@@ -21,13 +21,13 @@ const App: FC = () => {
     const [task, setTask] = useState<string>('');
     const [desc, setDesc] = useState<string>('');
     
-    function sendMessage(msg: string) {
-        axios.post(URL_API, {
-            chat_id: CHAT_ID,
-            parse_mode: 'html',
-            text: msg
-        });
-    }
+    // function sendMessage(msg: string) {
+    //     axios.post(URL_API, {
+    //         chat_id: CHAT_ID,
+    //         parse_mode: 'html',
+    //         text: msg
+    //     });
+    // }
     const [todoList, setTodoList] = useState<ITask[]>([]);
 
     useEffect(() => {
@@ -51,7 +51,6 @@ const App: FC = () => {
         }
 
         let msg = `New task added: <b>${task}</b>`;
-        console.log(msg);
 
         const newTask = { taskName: task, taskDesc: desc };
         setTodoList([...todoList, newTask]);
@@ -60,7 +59,7 @@ const App: FC = () => {
             JSON.stringify([...todoList, newTask]),
         );
 
-        sendMessage(msg);
+        // sendMessage(msg);
 
         setTask('');
         setDesc('');
@@ -72,7 +71,7 @@ const App: FC = () => {
 
         setTodoList(elements);
         localStorage.setItem('todoList', JSON.stringify(elements));
-        sendMessage(msg);
+        // sendMessage(msg);
 
     };
 
