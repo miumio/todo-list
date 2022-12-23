@@ -9,29 +9,29 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 import { ITask } from './Interfaces';
 import TodoTask from './Components/TodoTask';
-// import axios from 'axios';
+import axios from 'axios';
 
 const theme = createTheme();
 
 const App: FC = () => {
-    // const TOKEN = '5790750760:AAGQLjHctAIeg30rJJzoQtQWIZ94K5GQ8Ic';
-    // const CHAT_ID = '-1001658794705';
-    // const URL_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+    const TOKEN = '5790750760:AAGQLjHctAIeg30rJJzoQtQWIZ94K5GQ8Ic';
+    const CHAT_ID = '-1001658794705';
+    const URL_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
     
     const [task, setTask] = useState<string>('');
     const [desc, setDesc] = useState<string>('');
     
-    // function sendMessage(msg: string) {
-    //     axios.post(URL_API, {
-    //         chat_id: CHAT_ID,
-    //         parse_mode: 'html',
-    //         text: msg
-    //     });
-    // }
+    function sendMessage(msg: string) {
+        axios.post(URL_API, {
+            chat_id: CHAT_ID,
+            parse_mode: 'html',
+            text: msg
+        });
+    }
     const [todoList, setTodoList] = useState<ITask[]>([]);
 
     useEffect(() => {
-        const storedList = JSON.parse(localStorage.getItem('todoList') ?? '{}');
+        const storedList = JSON.parse(localStorage.getItem('todoList') ?? '[]');
         setTodoList(storedList);
     }, []);
 
@@ -50,7 +50,7 @@ const App: FC = () => {
             return;
         }
 
-        // let msg = `New task added: <b>${task}</b>`;
+        let msg = `New task added: <b>${task}</b>`;
 
         const newTask = { taskName: task, taskDesc: desc };
         setTodoList([...todoList, newTask]);
@@ -59,7 +59,7 @@ const App: FC = () => {
             JSON.stringify([...todoList, newTask]),
         );
 
-        // sendMessage(msg);
+        sendMessage(msg);
 
         setTask('');
         setDesc('');
@@ -67,11 +67,11 @@ const App: FC = () => {
 
     const completeTask = (el: string): void => {
         const elements = todoList.filter((task) => task.taskName !== el);
-        // let msg = `Task <b>${el}</b> is finished`;
+        let msg = `Task <b>${el}</b> is finished`;
 
         setTodoList(elements);
         localStorage.setItem('todoList', JSON.stringify(elements));
-        // sendMessage(msg);
+        sendMessage(msg);
 
     };
 
