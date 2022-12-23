@@ -1,8 +1,8 @@
 {
-  "name": "todo app",
+  "name": "my-app",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://todo-list-miumio.vercel.app/build",
+  "homepage": "https://miumio.github.io/my-app",
   "dependencies": {
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
@@ -10,16 +10,24 @@
     "@mui/material": "latest",
     "@types/react": "latest",
     "axios": "^1.2.1",
+    "gh-pages": "^4.0.0",
     "react": "latest",
     "react-dom": "latest",
-    "react-scripts": "latest",
-    "typescript": "latest"
+    "react-scripts": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .tsx --ext .ts src/",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
   },
   "browserslist": {
     "production": [
@@ -32,5 +40,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-dom": "^18.0.10",
+    "typescript": "latest"
   }
 }
