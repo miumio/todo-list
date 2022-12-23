@@ -1,5 +1,8 @@
 import React from 'react';
 import { ITask } from '../Interfaces';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Box from '@mui/material/Box';
 
 interface Props {
     task: ITask;
@@ -8,12 +11,17 @@ interface Props {
 
 const TodoTask = ({ task, completeTask }: Props) => {
     return (
-        <>
-            {task.taskName} {task.taskDesc}
-
-            <button onClick={() => {completeTask(task.taskName)}}>x</button>
-            <p>It is {new Date().toLocaleString() } </p>
-        </>
+        <Box>
+            {new Date().toLocaleString()} {task.taskName} {task.taskDesc}
+            <IconButton
+                aria-label='delete'
+                onClick={() => {
+                    completeTask(task.taskName);
+                }}
+            >
+                <DeleteIcon />
+            </IconButton>
+        </Box>
     );
 };
 

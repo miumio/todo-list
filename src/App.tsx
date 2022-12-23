@@ -17,15 +17,15 @@ const App: FC = () => {
     const TOKEN = '5790750760:AAGQLjHctAIeg30rJJzoQtQWIZ94K5GQ8Ic';
     const CHAT_ID = '-1001658794705';
     const URL_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
-    
+
     const [task, setTask] = useState<string>('');
     const [desc, setDesc] = useState<string>('');
-    
+
     function sendMessage(msg: string) {
         axios.post(URL_API, {
             chat_id: CHAT_ID,
             parse_mode: 'html',
-            text: msg
+            text: msg,
         });
     }
     const [todoList, setTodoList] = useState<ITask[]>([]);
@@ -72,7 +72,6 @@ const App: FC = () => {
         setTodoList(elements);
         localStorage.setItem('todoList', JSON.stringify(elements));
         sendMessage(msg);
-
     };
 
     return (
@@ -90,7 +89,7 @@ const App: FC = () => {
                     <Typography component='h1' variant='h5'>
                         ToDo
                     </Typography>
-                    <ul>
+                    <div>
                         {todoList.map((task: ITask, key: number) => {
                             return (
                                 <TodoTask
@@ -100,7 +99,7 @@ const App: FC = () => {
                                 />
                             );
                         })}
-                    </ul>
+                    </div>
                     <Box
                         component='form'
                         onSubmit={handleSubmit}
