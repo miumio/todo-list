@@ -1,4 +1,4 @@
-# Simple ToDo app with notification in telegram
+# Simple ToDo app with notification to telegram
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 To see notification: join [https://t.me/todo_ch](https://t.me/todo_ch)
