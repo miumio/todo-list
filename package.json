@@ -1,8 +1,8 @@
 {
-  "name": "my-app",
+  "name": "todo-list",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://miumio.github.io/my-app",
+  "homepage": "./",
   "dependencies": {
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
